@@ -18,6 +18,8 @@ module.exports = {
   },
   plugins: ['react', 'prettier'],
   rules: {
+    'react/jsx-props-no-spreading': 0,
+    'react/static-property-placement': 0,
     'react/state-in-constructor': 0,
     'prettier/prettier': 'error',
     'react/jsx-filename-extension': [
