@@ -1,12 +1,20 @@
 import React from 'react';
-import {Text} from 'react-native';
 
 import Background from '../../components/Background';
 
-// import { Container } from './styles';
+import {Container, Form, FormInput, SubmitButton} from './styles';
 
 export default function Main() {
-  return <Background />;
+  return (
+    <Background>
+      <Container>
+        <Form>
+          <FormInput placeholder="Pesquise por cidade" />
+          <SubmitButton onPress={() => {}}>Pesquisar</SubmitButton>
+        </Form>
+      </Container>
+    </Background>
+  );
 }
 
 Main.navigationOptions = {
