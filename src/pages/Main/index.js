@@ -1,13 +1,22 @@
 import React, {useState} from 'react';
 
+import api from '../../services/api';
 import Background from '../../components/Background';
 
 import {Container, Form, FormInput, SubmitButton} from './styles';
 
 export default function Main() {
   const [city, setCity] = useState('');
+  const [inputCity, setInputCity] = useState('');
 
-  function handleSearch() {}
+  async function handleSearch() {
+    setCity(inputCity);
+
+    const infoCity = await api.get(`location/search/?query=${city}`);
+    const {woeid} = infoCity.data[0];
+    const weather = await api.get(`location/${woeid}`);
+    console.tron.log(weather.data);
+  }
 
   return (
     <Background>
@@ -15,8 +24,8 @@ export default function Main() {
         <Form>
           <FormInput
             placeholder="Pesquise por cidade"
-            value={city}
-            onChange={e => setCity(e.target.value)}
+            value={inputCity}
+            onChangeText={text => setInputCity(text)}
           />
           <SubmitButton onPress={handleSearch}>Pesquisar</SubmitButton>
         </Form>
