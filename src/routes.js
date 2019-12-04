@@ -7,8 +7,8 @@ import Weather from './pages/Weather';
 const Routes = createAppContainer(
   createStackNavigator(
     {
-      Main,
       Weather,
+      Main,
     },
     {
       headerLayoutPreset: 'center',
