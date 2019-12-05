@@ -7,7 +7,7 @@ import Background from '../../components/Background';
 
 import {Container, Form, FormInput, SubmitButton} from './styles';
 
-export default function Main() {
+export default function Main({navigation}) {
   const [city, setCity] = useState('');
   const dispatch = useDispatch();
 
@@ -17,17 +17,15 @@ export default function Main() {
       const {woeid} = infoCity.data[0];
       try {
         const weather = await api.get(`location/${woeid}`);
-        const {consolidated_weather} = weather.data;
-
-        // console.tron.log(consolidated_weather);
-        dispatch(WeatherActions.cityClimate(consolidated_weather));
+        dispatch(WeatherActions.cityClimate(weather.data));
+        navigation.navigate('Weather');
       } catch (error) {
         console.tron.log(error);
       }
     } catch (error) {
       console.tron.log(error);
     }
-  }, [city, dispatch]);
+  }, [city, dispatch, navigation]);
 
   return (
     <Background>
@@ -37,6 +35,8 @@ export default function Main() {
             placeholder="Pesquise por cidade"
             value={city}
             onChangeText={text => setCity(text)}
+            returnKeyType="send"
+            onSubmitEditing={handleSearch}
           />
           <SubmitButton onPress={handleSearch}>Pesquisar</SubmitButton>
         </Form>
@@ -46,5 +46,5 @@ export default function Main() {
 }
 
 Main.navigationOptions = {
-  title: 'Main',
+  title: 'Principal',
 };
