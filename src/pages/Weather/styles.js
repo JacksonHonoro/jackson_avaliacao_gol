@@ -35,19 +35,6 @@ export const MapCity = styled(MapView)`
   flex: 1;
 `;
 
-export const Footer = styled.View`
-  flex: 1;
-  align-self: stretch;
-  align-items: flex-start;
-  justify-content: flex-end;
-`;
-
-export const CelsiusFahre = styled.Text`
-  font-size: 20px;
-  margin-bottom: 15px;
-  color: #fff;
-`;
-
 export const List = styled.FlatList.attrs({
   showsVerticalScrollIndicator: false,
 })`
@@ -75,4 +62,22 @@ export const Temp = styled.Text`
 export const IconClimate = styled.Image`
   width: 32px;
   height: 32px;
+`;
+
+export const Footer = styled.View`
+  flex: 1;
+  flex-direction: row;
+  align-self: stretch;
+  align-items: center;
+`;
+
+export const CelsiusFahre = styled.Text`
+  flex: 1;
+  font-size: 32px;
+  color: #fff;
+  text-align: center;
+`;
+
+export const SwitchTemp = styled.Switch`
+  flex: 1;
 `;

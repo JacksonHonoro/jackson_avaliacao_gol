@@ -1,4 +1,4 @@
-import React, {useMemo, useEffect} from 'react';
+import React, {useMemo, useState} from 'react';
 import {useSelector} from 'react-redux';
 
 import Background from '../../components/Background';
@@ -17,12 +17,15 @@ import {
   Day,
   Temp,
   IconClimate,
+  SwitchTemp,
 } from './styles';
 
 export default function Weather() {
   const weather = useSelector(state => state.weatherCity[0]);
   const {consolidated_weather} = weather;
   const linkIco = 'https://www.metaweather.com/static/img/weather/ico/';
+  // const [days, setDays] = useState([]);
+  const [toggleCels, setToggleCels] = useState(false);
 
   const title = useMemo(() => weather.title, [weather]);
   const tempDay = useMemo(() => consolidated_weather[0].the_temp, [
@@ -35,23 +38,26 @@ export default function Weather() {
       date: weat.applicable_date.split('-'),
       info: {
         id: weat.id,
-        temp: Math.round(weat.the_temp),
+        tempCels: Math.round(weat.the_temp),
+        tempFahr: Math.round((Math.round(weat.the_temp) / 5) * 9 + 32),
         state: weat.weather_state_abbr,
       },
     });
   }
 
-  const convertFahrenheit = celsius => {
-    return (celsius / 5) * 9 + 32;
+  const handleToggleSwitch = () => {
+    setToggleCels(!toggleCels);
   };
 
+  // const degrees = useMemo(() => days.info.temp, [days]);
+  console.tron.log(days);
   return (
     <Background>
       <Container>
         <Header>
           <InfoCity>
             <Title>{title}</Title>
-            <Temperature>{tempDay}</Temperature>
+            <Temperature>{tempDay}º</Temperature>
           </InfoCity>
           {/*
           <MapCity
@@ -73,7 +79,11 @@ export default function Weather() {
           renderItem={({item}) => (
             <InfoDay>
               <Day>{`${item.date[2]}/${item.date[1]}`}</Day>
-              <Temp>{item.info.temp}º</Temp>
+              {toggleCels ? (
+                <Temp>{item.info.tempFahr}º</Temp>
+              ) : (
+                <Temp>{item.info.tempCels}º</Temp>
+              )}
               <IconClimate
                 source={{
                   uri: `${linkIco}${item.info.state}.ico`,
@@ -83,7 +93,18 @@ export default function Weather() {
           )}
         />
         <Footer>
-          <CelsiusFahre>Celsius/Fahrenheit</CelsiusFahre>
+          {toggleCels ? (
+            <CelsiusFahre>Fahrenheit</CelsiusFahre>
+          ) : (
+            <CelsiusFahre>Celsius</CelsiusFahre>
+          )}
+
+          <SwitchTemp
+            value={toggleCels}
+            onValueChange={handleToggleSwitch}
+            thumbColor="#eee"
+            trackColor={{false: '#3d3d3d', true: '#bcbcbc'}}
+          />
         </Footer>
       </Container>
     </Background>
