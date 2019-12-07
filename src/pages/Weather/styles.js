@@ -35,11 +35,6 @@ export const MapCity = styled(MapView)`
   flex: 1;
 `;
 
-export const List = styled.View`
-  flex: 3;
-  align-self: stretch;
-`;
-
 export const Footer = styled.View`
   flex: 1;
   align-self: stretch;
@@ -47,22 +42,37 @@ export const Footer = styled.View`
   justify-content: flex-end;
 `;
 
-export const TypeTemp = styled.Text`
+export const CelsiusFahre = styled.Text`
   font-size: 20px;
   margin-bottom: 15px;
   color: #fff;
 `;
 
-export const InfoDay = styled.Text`
+export const List = styled.FlatList.attrs({
+  showsVerticalScrollIndicator: false,
+})`
+  flex: 3;
+  align-self: stretch;
+`;
+
+export const InfoDay = styled.View`
+  flex-direction: row;
   margin-bottom: 15px;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const Day = styled.Text`
-  font-size: 18px;
+  font-size: 20px;
+  color: #fff;
 `;
 
 export const Temp = styled.Text`
-  font-size: 18px;
+  font-size: 20px;
+  color: #fff;
 `;
 
-export const IconClimate = styled.Text``;
+export const IconClimate = styled.Image`
+  width: 32px;
+  height: 32px;
+`;
