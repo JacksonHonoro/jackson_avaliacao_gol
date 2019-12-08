@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import MapView from 'react-native-maps';
+// import MapView from 'react-native-maps';
 
 export const Container = styled.View`
   flex: 1;
@@ -31,7 +31,7 @@ export const Temperature = styled.Text`
   color: #fff;
 `;
 
-export const MapCity = styled(MapView)`
+export const MapCity = styled.View`
   flex: 1;
 `;
 

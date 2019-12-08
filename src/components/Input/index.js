@@ -1,12 +1,15 @@
-import React from 'react';
-import {View} from 'react-native';
+import React, {forwardRef} from 'react';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {Container, TInput} from './styles';
 
-export default function Input({style, ...rest}) {
+function Input({style, icon, ...rest}, ref) {
   return (
     <Container style={style}>
-      <TInput {...rest} />
+      {icon && <Icon name={icon} size={20} color="rgba(255, 255, 255, 0.6)" />}
+      <TInput {...rest} ref={ref} />
     </Container>
   );
 }
+
+export default forwardRef(Input);
