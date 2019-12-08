@@ -5,18 +5,15 @@ import Background from '../../components/Background';
 
 import {
   Container,
-  Header,
+  ContainerMap,
   InfoCity,
   TextTitle,
-  Temperature,
   MapCity,
-  ContainerMap,
   List,
-  Footer,
   InfoDay,
-  Day,
   TextInfo,
   IconClimate,
+  Footer,
   TextCelsiusFahr,
   SwitchTemp,
 } from './styles';
@@ -25,23 +22,20 @@ export default function Weather() {
   const weather = useSelector(state => state.weatherCity[0]);
   const consolidated = weather.consolidated_weather;
   const linkIco = 'https://www.metaweather.com/static/img/weather/ico/';
-  const [toggleFahr, setToggleFahr] = useState(false);
   const coord = weather.latt_long.split(',');
-  const [mapLoc, setMapLoc] = useState({
+  const days = [];
+  const [toggleFahr, setToggleFahr] = useState(false);
+  const mapLoc = {
     center: {
       latitude: parseFloat(coord[0]),
       longitude: parseFloat(coord[1]),
     },
-    zoom: 15,
+    zoom: 14,
     pitch: 0,
     altitude: 0,
     heading: 0,
-  });
+  };
 
-  console.tron.log(coord);
-  const title = useMemo(() => weather.title, [weather]);
-
-  const days = [];
   for (const weat of consolidated) {
     days.push({
       date: weat.applicable_date.split('-'),
@@ -63,7 +57,7 @@ export default function Weather() {
       <Container>
         <ContainerMap>
           <InfoCity>
-            <TextTitle>{title}</TextTitle>
+            <TextTitle>{weather.title}</TextTitle>
             {toggleFahr ? (
               <TextTitle>{days[0].info.tempFahr}º</TextTitle>
             ) : (

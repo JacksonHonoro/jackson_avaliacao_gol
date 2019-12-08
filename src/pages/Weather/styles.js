@@ -6,6 +6,11 @@ export const Container = styled.View`
   padding: 0 10px;
 `;
 
+export const ContainerMap = styled.View`
+  flex: 6;
+  margin-bottom: 10px;
+`;
+
 export const InfoCity = styled.View`
   flex: 2;
   align-items: center;
@@ -16,11 +21,6 @@ export const TextTitle = styled.Text`
   font-size: 30px;
   font-weight: bold;
   color: #fff;
-`;
-
-export const ContainerMap = styled.View`
-  flex: 6;
-  margin-bottom: 10px;
 `;
 
 export const MapCity = styled(MapView)`
@@ -36,16 +36,11 @@ export const List = styled.FlatList.attrs({
 
 export const InfoDay = styled.View`
   flex-direction: row;
-  margin-bottom: 15px;
+  margin-bottom: 16px;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   border-bottom-width: 1px;
-  border-color: #ccc;
-`;
-
-export const Day = styled.Text`
-  font-size: 20px;
-  color: #fff;
+  border-color: rgba(204, 204, 204, 0.5);
 `;
 
 export const TextInfo = styled.Text`
@@ -59,7 +54,7 @@ export const IconClimate = styled.Image`
 `;
 
 export const Footer = styled.View`
-  padding: 8px;
+  padding: 10px;
   flex-direction: row;
   align-self: stretch;
   align-items: baseline;
@@ -69,6 +64,9 @@ export const Footer = styled.View`
 export const TextCelsiusFahr = styled.Text`
   font-size: 20px;
   color: #fff;
+  text-decoration: underline;
 `;
 
-export const SwitchTemp = styled.Switch``;
+export const SwitchTemp = styled.Switch`
+  margin-bottom: 5px;
+`;
