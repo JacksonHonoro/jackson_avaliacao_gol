@@ -7,16 +7,17 @@ import {
   Container,
   Header,
   InfoCity,
-  Title,
+  TextTitle,
   Temperature,
   MapCity,
+  ContainerMap,
   List,
   Footer,
-  CelsiusFahre,
   InfoDay,
   Day,
-  Temp,
+  TextInfo,
   IconClimate,
+  TextCelsiusFahr,
   SwitchTemp,
 } from './styles';
 
@@ -25,7 +26,19 @@ export default function Weather() {
   const consolidated = weather.consolidated_weather;
   const linkIco = 'https://www.metaweather.com/static/img/weather/ico/';
   const [toggleFahr, setToggleFahr] = useState(false);
+  const coord = weather.latt_long.split(',');
+  const [mapLoc, setMapLoc] = useState({
+    center: {
+      latitude: parseFloat(coord[0]),
+      longitude: parseFloat(coord[1]),
+    },
+    zoom: 15,
+    pitch: 0,
+    altitude: 0,
+    heading: 0,
+  });
 
+  console.tron.log(coord);
   const title = useMemo(() => weather.title, [weather]);
 
   const days = [];
@@ -48,39 +61,28 @@ export default function Weather() {
   return (
     <Background>
       <Container>
-        <Header>
+        <ContainerMap>
           <InfoCity>
-            <Title>{title}</Title>
+            <TextTitle>{title}</TextTitle>
             {toggleFahr ? (
-              <Temperature>{days[0].info.tempFahr}º</Temperature>
+              <TextTitle>{days[0].info.tempFahr}º</TextTitle>
             ) : (
-              <Temperature>{days[0].info.tempCels}º</Temperature>
+              <TextTitle>{days[0].info.tempCels}º</TextTitle>
             )}
           </InfoCity>
-          {/*
-          <MapCity
-            region={{
-              latitude: -27.210753,
-              longitude: -49.644183,
-              latitudeDelta: 0.0143,
-              longitudeDelta: 0.0134,
-            }}
-            showsUserLocation
-            loadingEnabled
-          />
-          */}
-        </Header>
+          <MapCity provider="google" camera={mapLoc} />
+        </ContainerMap>
 
         <List
           data={days}
           keyExtractor={day => day.id}
           renderItem={({item}) => (
             <InfoDay>
-              <Day>{`${item.date[2]}/${item.date[1]}`}</Day>
+              <TextInfo>{`${item.date[2]}/${item.date[1]}`}</TextInfo>
               {toggleFahr ? (
-                <Temp>{item.info.tempFahr}º</Temp>
+                <TextInfo>{item.info.tempFahr}º</TextInfo>
               ) : (
-                <Temp>{item.info.tempCels}º</Temp>
+                <TextInfo>{item.info.tempCels}º</TextInfo>
               )}
               <IconClimate
                 source={{
@@ -92,9 +94,9 @@ export default function Weather() {
         />
         <Footer>
           {toggleFahr ? (
-            <CelsiusFahre>Fahrenheit</CelsiusFahre>
+            <TextCelsiusFahr>Fahrenheit</TextCelsiusFahr>
           ) : (
-            <CelsiusFahre>Celsius</CelsiusFahre>
+            <TextCelsiusFahr>Celsius</TextCelsiusFahr>
           )}
 
           <SwitchTemp
@@ -110,5 +112,5 @@ export default function Weather() {
 }
 
 Weather.navigationOptions = {
-  title: 'Informações do clima da cidade',
+  title: 'Informações do clima',
 };
