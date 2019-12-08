@@ -36,12 +36,16 @@ target 'app_weather' do
 
   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
-  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
+
 
   target 'app_weatherTests' do
     inherit! :search_paths
     # Pods for testing
   end
+  rn_maps_path = '../node_modules/react-native-maps'
+  pod 'react-native-google-maps', :path => rn_maps_path
+  pod 'GoogleMaps'
+  pod 'Google-Maps-iOS-Utils'
 
   use_native_modules!
 end
