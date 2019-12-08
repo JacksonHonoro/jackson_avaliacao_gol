@@ -22,18 +22,14 @@ import {
 
 export default function Weather() {
   const weather = useSelector(state => state.weatherCity[0]);
-  const {consolidated_weather} = weather;
+  const consolidated = weather.consolidated_weather;
   const linkIco = 'https://www.metaweather.com/static/img/weather/ico/';
-  // const [days, setDays] = useState([]);
-  const [toggleCels, setToggleCels] = useState(false);
+  const [toggleFahr, setToggleFahr] = useState(false);
 
   const title = useMemo(() => weather.title, [weather]);
-  const tempDay = useMemo(() => consolidated_weather[0].the_temp, [
-    consolidated_weather,
-  ]);
 
   const days = [];
-  for (const weat of consolidated_weather) {
+  for (const weat of consolidated) {
     days.push({
       date: weat.applicable_date.split('-'),
       info: {
@@ -46,7 +42,7 @@ export default function Weather() {
   }
 
   const handleToggleSwitch = () => {
-    setToggleCels(!toggleCels);
+    setToggleFahr(!toggleFahr);
   };
 
   // const degrees = useMemo(() => days.info.temp, [days]);
@@ -57,7 +53,11 @@ export default function Weather() {
         <Header>
           <InfoCity>
             <Title>{title}</Title>
-            <Temperature>{tempDay}º</Temperature>
+            {toggleFahr ? (
+              <Temperature>{days[0].info.tempFahr}º</Temperature>
+            ) : (
+              <Temperature>{days[0].info.tempCels}º</Temperature>
+            )}
           </InfoCity>
           {/*
           <MapCity
@@ -79,7 +79,7 @@ export default function Weather() {
           renderItem={({item}) => (
             <InfoDay>
               <Day>{`${item.date[2]}/${item.date[1]}`}</Day>
-              {toggleCels ? (
+              {toggleFahr ? (
                 <Temp>{item.info.tempFahr}º</Temp>
               ) : (
                 <Temp>{item.info.tempCels}º</Temp>
@@ -93,14 +93,14 @@ export default function Weather() {
           )}
         />
         <Footer>
-          {toggleCels ? (
+          {toggleFahr ? (
             <CelsiusFahre>Fahrenheit</CelsiusFahre>
           ) : (
             <CelsiusFahre>Celsius</CelsiusFahre>
           )}
 
           <SwitchTemp
-            value={toggleCels}
+            value={toggleFahr}
             onValueChange={handleToggleSwitch}
             thumbColor="#eee"
             trackColor={{false: '#3d3d3d', true: '#bcbcbc'}}
