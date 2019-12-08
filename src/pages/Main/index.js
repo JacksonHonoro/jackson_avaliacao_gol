@@ -37,7 +37,7 @@ export default function Main({navigation}) {
       <Container>
         <Form>
           <FormInput
-            icon="location_city"
+            icon="location-city"
             placeholder="Pesquise por cidade"
             value={city}
             onChangeText={text => setCity(text)}
