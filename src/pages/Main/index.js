@@ -1,12 +1,13 @@
 import React, {useState, useCallback} from 'react';
 import {useDispatch} from 'react-redux';
-import {Keyboard, ActivityIndicator} from 'react-native';
+import {Keyboard, Image} from 'react-native';
 import api from '../../services/api';
 import * as WeatherActions from '../../store/modules/weatherCity/actions';
 
+import logo from '../../assets/logo.png';
 import Background from '../../components/Background';
 
-import {Container, Form, FormInput, SubmitButton, TextButton} from './styles';
+import {Container, Form, FormInput, SubmitButton} from './styles';
 
 export default function Main({navigation}) {
   const [city, setCity] = useState('');
@@ -35,10 +36,11 @@ export default function Main({navigation}) {
   return (
     <Background>
       <Container>
+        <Image source={logo} />
         <Form>
           <FormInput
             icon="location-city"
-            placeholder="Pesquise por cidade"
+            placeholder="Pesquise por capital"
             value={city}
             onChangeText={text => setCity(text)}
             returnKeyType="send"

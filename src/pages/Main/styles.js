@@ -27,8 +27,3 @@ export const SubmitButton = styled(Button)`
   margin-top: 5px;
   opacity: ${props => (props.loading ? 0.6 : 1)};
 `;
-
-export const TextButton = styled.Text`
-  font-size: 18px;
-  color: #fff;
-`;
