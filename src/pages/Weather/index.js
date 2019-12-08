@@ -45,8 +45,6 @@ export default function Weather() {
     setToggleFahr(!toggleFahr);
   };
 
-  // const degrees = useMemo(() => days.info.temp, [days]);
-  console.tron.log(days);
   return (
     <Background>
       <Container>
@@ -112,5 +110,5 @@ export default function Weather() {
 }
 
 Weather.navigationOptions = {
-  title: 'Clima da cidade',
+  title: 'Informações do clima da cidade',
 };
