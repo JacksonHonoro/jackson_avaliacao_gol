@@ -1,6 +1,6 @@
 export function cityClimate(weather) {
   return {
-    type: 'CITY_CLIMATE',
+    type: '@weather/SEARCH_CITY',
     weather,
   };
 }

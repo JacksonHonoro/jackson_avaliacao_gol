@@ -23,8 +23,10 @@ export default function Main({navigation}) {
 
       dispatch(WeatherActions.cityClimate(weather.data));
       navigation.navigate('Weather');
+      setCity('');
     } catch (error) {
       Alert.alert('Nome da capital incorreto!');
+      setCity('');
     }
     Keyboard.dismiss();
     setLoading(false);

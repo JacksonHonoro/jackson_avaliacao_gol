@@ -20,33 +20,18 @@ import {
 
 export default function Weather() {
   const weather = useSelector(state => state.weatherCity[0]);
-  const consolidated = weather.consolidated_weather;
-  const linkIco = 'https://www.metaweather.com/static/img/weather/ico/';
-  const coord = weather.latt_long.split(',');
-  const days = [];
   const [toggleFahr, setToggleFahr] = useState(false);
-  const mapLoc = {
+
+  const locationCity = {
     center: {
-      latitude: parseFloat(coord[0]),
-      longitude: parseFloat(coord[1]),
+      latitude: parseFloat(weather.coord[0]),
+      longitude: parseFloat(weather.coord[1]),
     },
-    zoom: 14,
+    zoom: 15,
     pitch: 0,
     altitude: 0,
     heading: 0,
   };
-
-  for (const weat of consolidated) {
-    days.push({
-      date: weat.applicable_date.split('-'),
-      info: {
-        id: weat.id,
-        tempCels: Math.round(weat.the_temp),
-        tempFahr: Math.round((Math.round(weat.the_temp) / 5) * 9 + 32),
-        state: weat.weather_state_abbr,
-      },
-    });
-  }
 
   const handleToggleSwitch = () => {
     setToggleFahr(!toggleFahr);
@@ -59,17 +44,17 @@ export default function Weather() {
           <InfoCity>
             <TextTitle>{weather.title}</TextTitle>
             {toggleFahr ? (
-              <TextTitle>{days[0].info.tempFahr}º</TextTitle>
+              <TextTitle>{weather.days[0].info.tempFahr}º</TextTitle>
             ) : (
-              <TextTitle>{days[0].info.tempCels}º</TextTitle>
+              <TextTitle>{weather.days[0].info.tempCels}º</TextTitle>
             )}
           </InfoCity>
-          <MapCity provider="google" camera={mapLoc} />
+          <MapCity provider="google" camera={locationCity} />
         </ContainerMap>
 
         <List
-          data={days}
-          keyExtractor={day => day.id}
+          data={weather.days}
+          keyExtractor={day => String(day.id)}
           renderItem={({item}) => (
             <InfoDay>
               <TextInfo>{`${item.date[2]}/${item.date[1]}`}</TextInfo>
@@ -80,7 +65,7 @@ export default function Weather() {
               )}
               <IconClimate
                 source={{
-                  uri: `${linkIco}${item.info.state}.ico`,
+                  uri: `${weather.linkIco}${item.info.state}.ico`,
                 }}
               />
             </InfoDay>
