@@ -10,17 +10,17 @@ export default function weatherCity(state = [], action) {
         const days = [];
         const coord = action.weather.latt_long.split(',');
 
-        for (const weat of action.weather.consolidated_weather) {
-          days.push({
+        action.weather.consolidated_weather.map(weat => {
+          return days.push({
             id: weat.id,
             date: weat.applicable_date.split('-'),
             info: {
               tempCels: Math.round(weat.the_temp),
-              tempFahr: Math.round((Math.round(weat.the_temp) / 5) * 9 + 32),
+              tempFahr: Math.round((weat.the_temp / 5) * 9 + 32),
               state: weat.weather_state_abbr,
             },
           });
-        }
+        });
 
         draft.push({
           ...action.weather,
